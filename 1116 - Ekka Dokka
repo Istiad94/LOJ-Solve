@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+typedef long long int ll;
+using namespace std;
+int main()
+{
+    //freopen("d:\\in.txt", "r", stdin);
+    //freopen("d:\\out.txt", "w", stdout);
+    int test;
+    cin>>test;
+    for(int i=1;i<=test;i++)
+    {
+        ll n,odd,even,temp;
+        cin>>n;
+        if(n&1)
+        {
+            printf("Case %d: Impossible\n",i);
+            continue;
+        }
+        for(int j=2;j<=n;j+=2)
+        {
+            if(n%j==0&&(n/j)%2!=0)
+            {
+                even=j;
+                odd=(n/j);
+                break;
+            }
+        }
+        printf("Case %d: %lld %lld\n", i, odd,even);
+    }
+    return 0;
+}
