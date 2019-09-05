@@ -127,9 +127,8 @@ int main()
         ll sum = 0,r = sqrt(n);
         for(int i=2;i<=r;i++)
         {
-            ll x = i*i;
-            ll y = n/i - i + 1;
-            sum+=(y-1)*i+((y*(2*i+y-1))/2);
+            ll x = n/i - i + 1;
+            sum+=(x-1)*i+((x*(2*i+x-1))/2);
         }
         cout<<"Case "<<k<<": "<<sum<<endl;
     }
