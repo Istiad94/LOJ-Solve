@@ -138,7 +138,6 @@ ll zero(ll n)
 
 int main()
 {
-    /// Suck my dick! HACKER -_-
     //freopen("in.txt","r", stdin);
     //freopen("out.txt","w", stdout);
     ios_base::sync_with_stdio(false);
