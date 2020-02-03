@@ -1,0 +1,180 @@
+#include<bits/stdc++.h>
+using namespace std;
+#pragma GCC optimize("Ofast")
+
+/*
+#pragma warning(disable:4786)
+#pragma warning(disable:4996)
+#pragma GCC optimize ("unroll-loops")
+#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,tune=native")
+#include <ext/pb_ds/assoc_container.hpp> // Common file
+#include <ext/pb_ds/tree_policy.hpp> // Including tree_order_statistics_node_update
+#include <ext/pb_ds/detail/standard_policies.hpp>
+using namespace __gnu_pbds;
+// less for set and  less_equal  for multiset
+// order_of_key (k) : Number of items strictly smaller than k
+// find_by_order(k) : K-th element in a set (counting from zero) returns iterator
+*/
+
+/// M A C R O Starts Here
+#define MOD 100000007
+#define MOD2 998244353
+#define INF INT_MAX
+#define LINF LLONG_MAX
+#define pi acos(-1.0)
+#define get_stl(s) getline(cin,s)
+#define pii pair<int, int>
+#define pll pair<ll, ll>
+#define pdd pair<double, double>
+#define mem(name, value) memset(name, value, sizeof(name))
+#define all(name) name.begin(),name.end()
+#define pq_min priority_queue< int, vector<int>, greater<int> >
+#define dbg(args...)    do { cerr << #args << ' ' ; print(args); } while(0); cerr << endl;
+#define edge_pair pair<ll,pll>
+#define D(x)            cerr << __LINE__ << ": " #x " = " << (x) << '\n'
+#define DD(x, y)        cerr << __LINE__ << ": " #x " = " << (x) << ", " #y " = " << (y) << '\n'
+#define DDD(x, y, z)    cerr << __LINE__ << ": " #x " = " << (x) << ", " #y " = " << (y) << ",  " #z " = " << (z) << '\n'
+#define uniq(v) v.resize(unique(all(v)) - v.begin())
+#define howMany(v,L,R) (upper_bound(all(v),R)-lower_bound(all(v),L))
+#define pbds tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update>
+#define bs_find(array,value) binary_search(all(array),value)
+#define forn(i,x,n)   for(int i = x ; i <= n ; i++ )
+#define ford(i,x,n)   for(int i = x ; i >= n ; i-- )
+#define pb(x)           push_back(x)
+#define F first
+#define S second
+
+typedef long long ll;
+typedef unsigned long long ull;
+
+int dx[]= {0,0,1,-1,-1,1,-1,1};
+int dy[]= {-1,1,0,0,1,1,-1,-1};
+int dz[]= {0,0,1,-1,-1,1,-1,1};
+int kx[]= {2,2,-2,-2,1,-1,1,-1};
+int ky[]= {1,-1,1,-1,2,2,-2,-2};
+
+/// Template Starts here
+
+template <typename T>
+void print(const T& x)
+{
+    cerr<<x<<' ';
+}
+
+template <typename T1, typename... T2>
+void print(const T1& first, const T2&... rest)
+{
+    print(first);
+    print(rest ...) ;
+}
+/// Template Ends here
+
+/// Functions Starts here
+
+/// Bit-masking
+/*
+ll setBit(ll N,ll pos) {return N = N(1<<pos)};
+ll reset(ll N,ll pos){return N = N & ~(1<<pos);}
+bool check(ll N,ll pos){return (bool)(N & ((ll)1<<pos));}
+*/
+
+int toInt(string s)  { int sm; stringstream ss(s); ss>>sm; return sm; }
+ll toLlint(string s) { long long int sm; stringstream ss(s); ss>>sm; return sm;}
+
+bool inBound(int x,int y,int r,int c)
+{
+    return (x>=0&&x<r&&y>=0&&y<c);
+}
+
+ll mulMod(ll a,ll b,ll M)
+{
+    return ((((a%M)*(b%M))%M)+M)%M;
+}
+
+ll bigMod(ll n,ll p,ll M)
+{
+    if(!p)  return 1%M;
+    if(p&1)
+        return (bigMod(n,p-1,M)%M*(n%M))%M;
+    else
+    {
+        ll r =bigMod(n,p/2,M)%M;
+        return (((r*r)%M)+M)%M;
+    }
+}
+
+/*
+int lp[32001];
+vector<int>prime;
+void sieve(int limit = 32001)
+{
+    for(int i=2;i<limit;i++)
+    {
+        if(!lp[i])
+        {
+            lp[i] = i;
+            prime.push_back(i);
+        }
+        for(int j=0;j<prime.size()&&prime[j]<=i&&i*prime[j]<limit;j++)
+            lp[i*prime[j]]=i;
+    }
+}
+*/
+
+/// Functions Ends here
+vector<ll>p;
+const ll N = 205440;
+ll f[N];
+
+void fact()
+{
+    f[0] = 1;
+    for(int i=1;i<N;i++)
+        f[i]=(f[i-1]*i)%MOD;
+}
+
+void dp()
+{
+    fact();
+    for(ll i=2;i<=1e5;i++)
+    {
+        ll x=i,lim = 1e10;
+        while(lim/x>=i)
+        {
+            x*=i;
+            p.push_back(x);
+        }
+    }
+    set<ll>px;
+    for(auto x : p) px.insert(x);
+    p.clear();
+    for(auto x : px) p.push_back(x);
+    px.clear();
+}
+
+int main()
+{
+    //freopen("in.txt","r", stdin);
+    //freopen("out.txt","w", stdout);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL),cout.tie(NULL);
+    cout<<setprecision(10)<<fixed;
+
+    dp();
+    ll test,a,b;
+
+    scanf("%lld",&test);
+    
+    for(int kase = 1;kase<=test;kase++)
+    {
+        scanf("%lld%lld",&a,&b);
+        ll n = upper_bound(all(p),b)-lower_bound(all(p),a);
+        ll up = f[n+n];
+        ll down = (f[n+1]*f[n])%MOD;
+        down = bigMod(down,MOD-2,MOD);
+        ll ans = (!n) ? 0 : (up*down)%MOD;
+        printf("Case %d: %lld\n",kase,ans);
+    }
+
+    return 0;
+}
